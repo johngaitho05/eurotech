@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="vehicle_manufacturer_form_view" model="ir.ui.view">
+            <field name="name">vehicle.manufacturer.form</field>
+            <field name="model">vehicle.manufacturer</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <label class="oe_edit_only" for="name" string="Name"/>
+                        <h1><field name="name" placeholder="Manufacturer Name"/></h1>
+                        <group>
+                            <group>
+                                <field name="logo"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="vehicle_type_form_view" model="ir.ui.view">
+            <field name="name">vehicle.type.form</field>
+            <field name="model">vehicle.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <label class="oe_edit_only" for="name" string="Name"/>
+                        <h1><field name="name" placeholder="Display Name"/></h1>
+                        <group>
+                            <group>
+                                <field name="brand"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="vehicle_oe_number_form_view" model="ir.ui.view">
+            <field name="name">vehicle.oe_number.form</field>
+            <field name="model">vehicle.oe_number</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="number"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="vehicle_brand_form_view" model="ir.ui.view">
+            <field name="name">vehicle.brand.form</field>
+            <field name="model">vehicle.brand</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <label class="oe_edit_only" for="name" string="Name"/>
+                        <h1><field name="name" placeholder="Brand Name"/></h1>
+                        <group>
+                            <group>
+                                <field name="manufacturer"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="product_template_form_inherit" model="ir.ui.view">
+            <field name="name">product.template.vehicle_details</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='variants']" position="before">
+                    <page string="Vehicle Details" name="vehicle_details">
+                        <div id="vehicle_details">
+                            <group>
+                                <group>
+                                    <field name="v_code" placeholder="e.g. 50013670"/>
+                                    <field name="v_brand" readonly="1" attrs="{'invisible':[('v_type', '=', False)]}"/>
+                                    <field name="v_manufacturer" readonly="1" attrs="{'invisible':[('v_type', '=', False)]}"/>
+                                    <field name="v_type" placeholder="e.g. X-Series 2219 L"/>
+                                    <field name="v_description1"/>
+                                    <field name="v_description2"/>
+                                    <field name="v_description3"/>
+                                    <field name="v_alt_num"/>
+                                    <field name="v_commercial_type"/>
+                                    <field name="v_performance" placeholder="e.g. 355 kW / 483 HP"/>
+                                    <field name="v_oe_num" placeholder="e.g. 00224N0"/>
+                                </group>
+                                <group>
+                                    <field name="v_capacity" placeholder="e.g. 12580"/>
+                                    <field name="v_body_style" placeholder="e.g. Platform Chassis"/>
+                                    <field name="v_config" placeholder="e.g. 4x4"/>
+                                    <field name="v_tonnage" placeholder="e.g 18 or 19.7"/>
+                                    <field name="v_engine_type"/>
+                                    <field name="v_engine_codes" placeholder="e.g. XE 250 C"/>
+                                    <field name="v_group" placeholder="e.g. Filters"/>
+                                    <field name="v_vehicle" placeholder="e.g. EUROPEAN TRUCKS"/>
+                                    <field name="v_supplier"/>
+                                    <field name="v_driver_cabs"/>
+                                </group>
+                            </group>
+                        </div>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        <record id="product_search_by_vehicle_details" model="ir.ui.view">
+            <field name="name">product.template.vehicle_details.search</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_search_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="replace">
+                    <field name="name" string="Product" filter_domain="['|','|','|',
+                            ('default_code', 'ilike', self),('product_variant_ids.default_code', 'ilike', self),
+                             ('barcode', 'ilike', self),('name_search', 'ilike',self),]"/>
+                    <field  name="v_manufacturer" filter_domain="[('manufacturer_search','ilike', self)]"/>
+                    <field name="v_brand" filter_domain="[('brand_search','ilike', self)]"/>
+                    <field name="v_type" filter_domain="[('type_search','ilike', self)]"/>
+                    <field string="Parent Group" name="v_parent_group" filter_domain="[('parent_group_search','ilike', self)]"/>
+                    <field string="Group" name="v_group" filter_domain="[('group_search','ilike', self)]"/>
+                    <field name="v_description1" string="Description" filter_domain="[('description_search','ilike', self),]"/>
+                    <field name="v_oe_num" filter_domain="[('brand_search','ilike', self)]"/>
+                    <field name="v_alt_num" filter_domain="[('alt_num_search','ilike', self)]"/>
+                    <field name="v_commercial_type" filter_domain="[('commercial_type_search','ilike', self)]"/>
+                    <field name="v_capacity" filter_domain="[('capacity_search','ilike', self)]"/>
+                    <field name="v_body_style" filter_domain="[('body_style_search','ilike', self)]"/>
+                    <field  name="v_tonnage" filter_domain="[('tonnage_search','ilike', self)]"/>
+                    <field name="v_engine_type" filter_domain="[('engine_type_search','ilike', self)]"/>
+                    <field name="v_engine_codes" filter_domain="[('engine_codes_search','ilike', self)]"/>
+                    <field  name="v_driver_cabs" filter_domain="[('driver_cabs_search','ilike', self)]"/>
+                    <field name="v_supplier" filter_domain="[('supplier_saerch','ilike', self)]"/>
+                    <filter string="Engine Type is 'Petrol'" name="filter_to_purchase" domain="[('v_engine_type', '=', 'petrol')]"/>
+                    <filter string="Engine Type is 'Diesel'" name="filter_to_purchase" domain="[('v_engine_type', '=', 'diesel')]"/>
+                </xpath>
+                <xpath expr="//group[last()]" position="replace">
+                    <group expand="1" string="Group By">
+                        <filter string="Product Type" name="type" context="{'group_by':'type'}"/>
+                        <filter string="Product Category" name="categ_id" context="{'group_by':'categ_id'}"/>
+                        <filter string="Manufacturer" name="v_manufacturer" context="{'group_by':'v_manufacturer'}"/>
+                        <filter string="Brand" name="v_brand" context="{'group_by':'v_brand'}"/>
+                        <filter string="Vehicle Type" name="v_type" context="{'group_by':'v_type'}"/>
+                        <filter string="Group" name="v_type" context="{'group_by':'v_group'}"/>
+                        <filter string="Parent Group" name="v_type" context="{'group_by':'v_parent_group'}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

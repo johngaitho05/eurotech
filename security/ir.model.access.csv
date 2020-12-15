@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_vehicle_brand,access.vehicle.brand,model_vehicle_brand,,1,1,1,1
+access_vehicle_manufacturer,access.vehicle.manufacturer,model_vehicle_manufacturer,,1,1,1,1
+access_vehicle_group,access.vehicle.group,model_vehicle_group,,1,1,1,1
+access_vehicle_type,access.vehicle.type,model_vehicle_type,,1,1,1,1
+access_vehicle_oe_number,access.vehicle.oe_number,model_vehicle_oe_number,,1,1,1,1
+access_vehicle_body_style,access.vehicle.body_style,model_vehicle_body_style,,1,1,1,1
+access_vehicle_driver_cab,access.vehicle.driver_cab,model_vehicle_driver_cab,,1,1,1,1
+access_vehicle_body_style,access.vehicle.body_style,model_vehicle_body_style,,1,1,1,1
+access_vehicle_description,access.vehicle.description,model_vehicle_description,,1,1,1,1
+access_vehicle_performance,access.vehicle.performance,model_vehicle_performance,,1,1,1,1
+access_engine_code,access.vehicle.engine_code,model_vehicle_engine_code,,1,1,1,1
+access_vehicle_configuration,access.vehicle.configuration,model_vehicle_tonnage,,1,1,1,1
+access_vehicle_vehicle,access.vehicle.vehicle,model_vehicle_vehicle,,1,1,1,1
+access_vehicle_capacity,access.vehicle.capacity,model_vehicle_capacity,,1,1,1,1
+access_vehicle_config,access.vehicle.config,model_vehicle_config,,1,1,1,1
